@@ -8,12 +8,19 @@ import (
 	"os"
 	"strings"
 
+	"github.com/joho/godotenv"
 	"github.com/openai/openai-go/v2"
 	"github.com/openai/openai-go/v2/option"
 )
 
 func main() {
-	apiKey := "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"
+	// Create the .env file in the root directory with OPENAI_API_KEY key and value
+	err := godotenv.Load()
+	if err != nil {
+		fmt.Println("Error loading .env file")
+	}
+
+	apiKey := os.Getenv("OPENAI_API_KEY")
 	client := openai.NewClient(option.WithAPIKey(apiKey))
 
 	ctx := context.Background()
